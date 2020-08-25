@@ -16,7 +16,7 @@
         android:text="@string/game_tic_tac_toe"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="#0C1C4E"
-        android:textSize="30sp"
+        android:textSize="26sp"
         android:typeface="normal" />
 
     <TextView
@@ -33,13 +33,6 @@
         android:textStyle="bold|italic"
         tools:text="winner" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal"/>
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,8 +41,8 @@
         <Button
 
             android:id="@+id/button00"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:background="#FA8E6D"
@@ -59,8 +52,8 @@
 
         <Button
             android:id="@+id/button01"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginBottom="10dp"
             android:layout_toRightOf="@id/button00"
             android:background="#FA8E6D"
@@ -70,8 +63,8 @@
         <Button
             android:id="@+id/button02"
             style="@style/Widget.AppCompat.Button"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"
             android:layout_toRightOf="@id/button01"
@@ -80,8 +73,8 @@
 
         <Button
             android:id="@+id/button10"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_below="@id/button00"
             android:layout_alignLeft="@id/button00"
             android:background="#FA8E6D"
@@ -89,8 +82,8 @@
 
         <Button
             android:id="@+id/button11"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_below="@id/button01"
             android:layout_alignLeft="@id/button01"
             android:background="#FA8E6D"
@@ -98,8 +91,8 @@
 
         <Button
             android:id="@+id/button12"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_below="@id/button02"
             android:layout_alignLeft="@id/button02"
             android:background="#FA8E6D"
@@ -107,8 +100,8 @@
 
         <Button
             android:id="@+id/button20"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_below="@id/button10"
             android:layout_alignLeft="@id/button10"
             android:layout_marginTop="10dp"
@@ -117,8 +110,8 @@
 
         <Button
             android:id="@+id/button21"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_below="@id/button11"
             android:layout_alignLeft="@id/button11"
 
@@ -128,8 +121,8 @@
 
         <Button
             android:id="@+id/button22"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_below="@id/button12"
             android:layout_alignLeft="@id/button12"
             android:layout_marginTop="10dp"

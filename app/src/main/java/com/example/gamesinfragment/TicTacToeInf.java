@@ -4,8 +4,8 @@ public class TicTacToeInf {
     byte[][] mTable;
     boolean mPlayer1Turn;
     boolean mPlayer2Turn=false;
-    String mPlayer1Name;
-    String mPlayer2Name;
+    String mPlayer1Name="Player1";
+    String mPlayer2Name="Player2";
 
 
     public TicTacToeInf() {
