@@ -3,4 +3,6 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="four_in_a_row_player1_color">#F80F5E</color>
+    <color name="four_in_a_row_player2_color">#611ADF</color>
 </resources>

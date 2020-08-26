@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#248E10"
-    tools:context=".FourInARowFragment" >
+    tools:context=".FourInARowFragment">
 
     <TextView
         android:id="@+id/textViewGameNameFIR"
@@ -17,6 +17,18 @@
         android:textColor="#0C1C4E"
         android:textSize="26sp"
         android:typeface="normal" />
+
+    <TextView
+        android:id="@+id/textViewFIRWinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="50dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="#980909"
+        android:textSize="36sp"
+        android:textStyle="bold|italic"
+        tools:text="winner" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -43,7 +55,7 @@
             android:layout_height="50dp"
             android:layout_margin="7dp"
             android:layout_toRightOf="@id/FIRbutton00"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton02"
@@ -51,7 +63,7 @@
             android:layout_height="50dp"
             android:layout_margin="7dp"
             android:layout_toRightOf="@id/FIRbutton01"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton03"
@@ -59,7 +71,7 @@
             android:layout_height="50dp"
             android:layout_margin="7dp"
             android:layout_toRightOf="@id/FIRbutton02"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton04"
@@ -67,7 +79,7 @@
             android:layout_height="50dp"
             android:layout_margin="7dp"
             android:layout_toRightOf="@id/FIRbutton03"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton10"
@@ -79,7 +91,7 @@
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:layout_marginBottom="7dp"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton11"
@@ -91,7 +103,7 @@
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:layout_marginBottom="7dp"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton12"
@@ -103,7 +115,7 @@
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:layout_marginBottom="7dp"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton13"
@@ -115,7 +127,7 @@
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:layout_marginBottom="7dp"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton14"
@@ -127,7 +139,7 @@
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:layout_marginBottom="7dp"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton20"
@@ -139,7 +151,7 @@
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:layout_marginBottom="7dp"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton21"
@@ -151,7 +163,7 @@
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:layout_marginBottom="7dp"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton22"
@@ -163,7 +175,7 @@
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:layout_marginBottom="7dp"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton23"
@@ -175,7 +187,7 @@
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:layout_marginBottom="7dp"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton24"
@@ -187,7 +199,7 @@
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:layout_marginBottom="7dp"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton30"
@@ -199,7 +211,7 @@
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:layout_marginBottom="7dp"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton31"
@@ -211,7 +223,7 @@
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:layout_marginBottom="7dp"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton32"
@@ -223,7 +235,7 @@
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:layout_marginBottom="7dp"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton33"
@@ -235,7 +247,7 @@
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:layout_marginBottom="7dp"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton34"
@@ -247,7 +259,7 @@
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:layout_marginBottom="7dp"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton40"
@@ -259,7 +271,7 @@
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:layout_marginBottom="7dp"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton41"
@@ -271,7 +283,7 @@
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:layout_marginBottom="7dp"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton42"
@@ -283,7 +295,7 @@
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:layout_marginBottom="7dp"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton43"
@@ -295,7 +307,7 @@
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:layout_marginBottom="7dp"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
         <Button
             android:id="@+id/FIRbutton44"
@@ -307,7 +319,7 @@
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:layout_marginBottom="7dp"
-            android:background="#FBAAFD"/>
+            android:background="#FBAAFD" />
 
     </RelativeLayout>
 </FrameLayout>

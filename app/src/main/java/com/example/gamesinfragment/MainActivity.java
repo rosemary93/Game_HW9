@@ -39,13 +39,18 @@ private Button mButton4InARow;
             public void onClick(View v) {
 
                 TicTacToeFragment ticTacToeFragment = new TicTacToeFragment();
-                if (fragment==null)
+                /*if (fragment==null)
                 {
                     fragmentManager.beginTransaction().add(R.id.fragment_game_container,ticTacToeFragment).commit();
                 }
                 else {
-                    fragmentManager.beginTransaction().replace(R.id.fragment_game_container,ticTacToeFragment).commit();
+                    fragmentManager.beginTransaction().remove(fragment);
+                }*/
+                if(fragment!=null)
+                {
+                    fragmentManager.beginTransaction().remove(fragment).commit();
                 }
+                fragmentManager.beginTransaction().add(R.id.fragment_game_container,ticTacToeFragment).commit();
             }
         });
 
@@ -55,14 +60,19 @@ private Button mButton4InARow;
             @Override
             public void onClick(View v) {
 
-                if (fragment==null)
+                /*if (fragment==null)
                 {
                     fragmentManager.beginTransaction().add(R.id.fragment_game_container,fourInARowFragment).commit();
                 }
                 else {
                     fragmentManager.beginTransaction().replace(R.id.fragment_game_container,fourInARowFragment).commit();
 
+                }*/
+                if(fragment!=null)
+                {
+                    fragmentManager.beginTransaction().remove(fragment).commit();
                 }
+                fragmentManager.beginTransaction().add(R.id.fragment_game_container,fourInARowFragment).commit();
             }
         });
     }
