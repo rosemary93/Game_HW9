@@ -39,7 +39,6 @@
         android:layout_gravity="center">
 
         <Button
-
             android:id="@+id/button00"
             android:layout_width="50dp"
             android:layout_height="50dp"

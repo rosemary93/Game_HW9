@@ -2,6 +2,7 @@ package com.example.gamesinfragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -32,6 +33,12 @@ public class TicTacToeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         ticTacToeInf = new TicTacToeInf();
         mButtons=new Button[3][3];
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
     }
 
     @Override

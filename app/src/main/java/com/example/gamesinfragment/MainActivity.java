@@ -49,12 +49,21 @@ private Button mButton4InARow;
             }
         });
 
-       /* m4InARow.setOnClickListener(new View.OnClickListener() {
+        mButton4InARow.setOnClickListener(new View.OnClickListener() {
 
+            FourInARowFragment fourInARowFragment=new FourInARowFragment();
             @Override
             public void onClick(View v) {
 
+                if (fragment==null)
+                {
+                    fragmentManager.beginTransaction().add(R.id.fragment_game_container,fourInARowFragment).commit();
+                }
+                else {
+                    fragmentManager.beginTransaction().replace(R.id.fragment_game_container,fourInARowFragment).commit();
+
+                }
             }
-        });*/
+        });
     }
 }
