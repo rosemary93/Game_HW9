@@ -18,11 +18,16 @@ import android.widget.TextView;
  */
 public class FourInARowFragment extends Fragment {
 
+    public static final String BUNDLE_KEY_HAS_NO_WINNER = "hasNoWinner";
+    public static final String BUNDLE_KEY_COUNTER = "counter";
+    public static final String BUNDLE_KEY_PLAYER_1_TURN = "player1Turn";
+    public static final String BUNDLE_KEY_GAME_TABLE = "gameTable";
     Button[][] mButtons;
     FourInARowInf fourInARowInf;
     TextView mTextViewFIRwinner;
     boolean mHasNoWinner;
-    int counter=0;
+    int mCounter = 0;
+
     public FourInARowFragment() {
         // Required empty public constructor
     }
@@ -31,15 +36,17 @@ public class FourInARowFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-
+        outState.putBoolean(BUNDLE_KEY_HAS_NO_WINNER, mHasNoWinner);
+        outState.putInt(BUNDLE_KEY_COUNTER, mCounter);
+        outState.putBoolean(BUNDLE_KEY_PLAYER_1_TURN, fourInARowInf.mPlayer1Turn);
+        outState.putSerializable(BUNDLE_KEY_GAME_TABLE, fourInARowInf.mTable);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fourInARowInf=new FourInARowInf();
-        mButtons=new Button[5][5];
-
+        fourInARowInf = new FourInARowInf();
+        mButtons = new Button[5][5];
 
     }
 
@@ -47,17 +54,46 @@ public class FourInARowFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_four_in_a_row, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_four_in_a_row, container, false);
         findViews(view);
+        if (savedInstanceState != null) {
+            mHasNoWinner = savedInstanceState.getBoolean(BUNDLE_KEY_HAS_NO_WINNER);
+            mCounter = savedInstanceState.getInt(BUNDLE_KEY_COUNTER);
+            fourInARowInf.mPlayer1Turn = savedInstanceState.getBoolean(BUNDLE_KEY_PLAYER_1_TURN);
+            fourInARowInf.mTable = (byte[][]) savedInstanceState.getSerializable(BUNDLE_KEY_GAME_TABLE);
+
+            updateUI_checkResult();
+
+        }
+
+
         setListeners();
 
         return view;
     }
 
+    private void updateUI_checkResult() {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (fourInARowInf.mTable[i][j] == 1) {
+                    mButtons[i][j].setBackgroundColor(getResources().getColor(R.color.four_in_a_row_player1_color));
+                    mButtons[i][j].setClickable(false);
+                    checkWin(i, j);
+                    checkTie();
+                } else if (fourInARowInf.mTable[i][j] == -1) {
+                    mButtons[i][j].setBackgroundColor(getResources().getColor(R.color.four_in_a_row_player2_color));
+                    mButtons[i][j].setClickable(false);
+                    checkWin(i, j);
+                    checkTie();
+                }
+            }
+        }
+    }
+
+
     private void setListeners() {
-        for (int i = 0; i <5 ; i++) {
-            for (int j = 0; j <5 ; j++) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
                 final int finalI = i;
                 final int finalJ = j;
                 mButtons[i][j].setOnClickListener(new View.OnClickListener() {
@@ -65,14 +101,16 @@ public class FourInARowFragment extends Fragment {
                     public void onClick(View v) {
                         try {
                             if (finalI == 4 || fourInARowInf.mTable[finalI + 1][finalJ] == -1 || fourInARowInf.mTable[finalI + 1][finalJ] == 1) {
-                                counter++;
+                                mCounter++;
                                 getInputs(finalI, finalJ);
                                 checkWin(finalI, finalJ);
                                 checkTie();
-                                fourInARowInf.changeTurn();
+                                if (mHasNoWinner)
+                                    fourInARowInf.changeTurn();
                                 mButtons[finalI][finalJ].setClickable(false);
                             }
-                        }catch (Exception ignored){}
+                        } catch (Exception ignored) {
+                        }
                     }
                 });
             }
@@ -80,78 +118,71 @@ public class FourInARowFragment extends Fragment {
     }
 
     private void checkTie() {
-        if (counter==25 && mHasNoWinner)
-        {
+        if (mCounter == 25 && mHasNoWinner) {
             setButtonsDisable();
             mTextViewFIRwinner.setText(R.string.tie);
         }
     }
 
     private void checkWin(int finalI, int finalJ) {
-        if(fourInARowInf.checkRow(finalI,finalJ)||fourInARowInf.checkColumn(finalI,finalJ)|| fourInARowInf.checkDiagonal(finalI,finalJ))
-        {
-            mHasNoWinner=false;
+        if (fourInARowInf.checkRow(finalI, finalJ) || fourInARowInf.checkColumn(finalI, finalJ) || fourInARowInf.checkDiagonal(finalI, finalJ)) {
+            mHasNoWinner = false;
             setButtonsDisable();
-            if (fourInARowInf.mPlayer1Turn)
-            {
+            if (fourInARowInf.mPlayer1Turn) {
                 mTextViewFIRwinner.setText(String.format("%s wins", fourInARowInf.getPlayer1Name()));
-            }
-            else {
+            } else {
                 mTextViewFIRwinner.setText(String.format("%s wins", fourInARowInf.getPlayer2Name()));
             }
-        }
-        else {
-            mHasNoWinner=true;
+        } else {
+            mHasNoWinner = true;
         }
     }
 
     private void getInputs(int finalI, int finalJ) {
-        if (fourInARowInf.mPlayer1Turn)
-        {
-            fourInARowInf.mTable[finalI][finalJ]=1;
+        if (fourInARowInf.mPlayer1Turn) {
+            fourInARowInf.mTable[finalI][finalJ] = 1;
             mButtons[finalI][finalJ].setBackgroundColor(getResources().getColor(R.color.four_in_a_row_player1_color));
-        }else {
-            fourInARowInf.mTable[finalI][finalJ]=-1;
+        } else {
+            fourInARowInf.mTable[finalI][finalJ] = -1;
             mButtons[finalI][finalJ].setBackgroundColor(getResources().getColor(R.color.four_in_a_row_player2_color));
 
         }
     }
 
-    private void setButtonsDisable()
-    {
-        for (int i = 0; i <5 ; i++) {
-            for (int j = 0; j <5 ; j++) {
+    private void setButtonsDisable() {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
                 mButtons[i][j].setEnabled(false);
             }
         }
     }
 
     private void findViews(View view) {
-        mButtons[0][0]=view.findViewById(R.id.FIRbutton00);
-        mButtons[0][1]=view.findViewById(R.id.FIRbutton01);
-        mButtons[0][2]=view.findViewById(R.id.FIRbutton02);
-        mButtons[0][3]=view.findViewById(R.id.FIRbutton03);
-        mButtons[0][4]=view.findViewById(R.id.FIRbutton04);
-        mButtons[1][0]=view.findViewById(R.id.FIRbutton10);
-        mButtons[1][1]=view.findViewById(R.id.FIRbutton11);
-        mButtons[1][2]=view.findViewById(R.id.FIRbutton12);
-        mButtons[1][3]=view.findViewById(R.id.FIRbutton13);
-        mButtons[1][4]=view.findViewById(R.id.FIRbutton14);
-        mButtons[2][0]=view.findViewById(R.id.FIRbutton20);
-        mButtons[2][1]=view.findViewById(R.id.FIRbutton21);
-        mButtons[2][2]=view.findViewById(R.id.FIRbutton22);
-        mButtons[2][3]=view.findViewById(R.id.FIRbutton23);
-        mButtons[2][4]=view.findViewById(R.id.FIRbutton24);
-        mButtons[3][0]=view.findViewById(R.id.FIRbutton30);
-        mButtons[3][1]=view.findViewById(R.id.FIRbutton31);
-        mButtons[3][2]=view.findViewById(R.id.FIRbutton32);
-        mButtons[3][3]=view.findViewById(R.id.FIRbutton33);
-        mButtons[3][4]=view.findViewById(R.id.FIRbutton34);
-        mButtons[4][0]=view.findViewById(R.id.FIRbutton40);
-        mButtons[4][1]=view.findViewById(R.id.FIRbutton41);
-        mButtons[4][2]=view.findViewById(R.id.FIRbutton42);
-        mButtons[4][3]=view.findViewById(R.id.FIRbutton43);
-        mButtons[4][4]=view.findViewById(R.id.FIRbutton44);
-        mTextViewFIRwinner=view.findViewById(R.id.textViewFIRWinner);
+        mButtons[0][0] = view.findViewById(R.id.FIRbutton00);
+        mButtons[0][1] = view.findViewById(R.id.FIRbutton01);
+        mButtons[0][2] = view.findViewById(R.id.FIRbutton02);
+        mButtons[0][3] = view.findViewById(R.id.FIRbutton03);
+        mButtons[0][4] = view.findViewById(R.id.FIRbutton04);
+        mButtons[1][0] = view.findViewById(R.id.FIRbutton10);
+        mButtons[1][1] = view.findViewById(R.id.FIRbutton11);
+        mButtons[1][2] = view.findViewById(R.id.FIRbutton12);
+        mButtons[1][3] = view.findViewById(R.id.FIRbutton13);
+        mButtons[1][4] = view.findViewById(R.id.FIRbutton14);
+        mButtons[2][0] = view.findViewById(R.id.FIRbutton20);
+        mButtons[2][1] = view.findViewById(R.id.FIRbutton21);
+        mButtons[2][2] = view.findViewById(R.id.FIRbutton22);
+        mButtons[2][3] = view.findViewById(R.id.FIRbutton23);
+        mButtons[2][4] = view.findViewById(R.id.FIRbutton24);
+        mButtons[3][0] = view.findViewById(R.id.FIRbutton30);
+        mButtons[3][1] = view.findViewById(R.id.FIRbutton31);
+        mButtons[3][2] = view.findViewById(R.id.FIRbutton32);
+        mButtons[3][3] = view.findViewById(R.id.FIRbutton33);
+        mButtons[3][4] = view.findViewById(R.id.FIRbutton34);
+        mButtons[4][0] = view.findViewById(R.id.FIRbutton40);
+        mButtons[4][1] = view.findViewById(R.id.FIRbutton41);
+        mButtons[4][2] = view.findViewById(R.id.FIRbutton42);
+        mButtons[4][3] = view.findViewById(R.id.FIRbutton43);
+        mButtons[4][4] = view.findViewById(R.id.FIRbutton44);
+        mTextViewFIRwinner = view.findViewById(R.id.textViewFIRWinner);
     }
 }

@@ -10,8 +10,11 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-private Button mButtonTicTacToe;
-private Button mButton4InARow;
+    private Button mButtonTicTacToe;
+    private Button mButton4InARow;
+    FragmentManager fragmentManager;
+    Fragment fragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,13 +30,13 @@ private Button mButton4InARow;
     }
 
     private void findViews() {
-        mButtonTicTacToe =findViewById(R.id.button_tic_tac_toe);
-        mButton4InARow =findViewById(R.id.button_4_in_row);
+        mButtonTicTacToe = findViewById(R.id.button_tic_tac_toe);
+        mButton4InARow = findViewById(R.id.button_4_in_row);
     }
 
     private void setListeners() {
-        final FragmentManager fragmentManager =getSupportFragmentManager() ;
-        final Fragment fragment=fragmentManager.findFragmentById(R.id.fragment_game_container);
+        fragmentManager = getSupportFragmentManager();
+        fragment = fragmentManager.findFragmentById(R.id.fragment_game_container);
         mButtonTicTacToe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,17 +49,17 @@ private Button mButton4InARow;
                 else {
                     fragmentManager.beginTransaction().remove(fragment);
                 }*/
-                if(fragment!=null)
-                {
+                if (fragment != null) {
                     fragmentManager.beginTransaction().remove(fragment).commit();
                 }
-                fragmentManager.beginTransaction().add(R.id.fragment_game_container,ticTacToeFragment).commit();
+                fragmentManager.beginTransaction().add(R.id.fragment_game_container, ticTacToeFragment).commit();
             }
         });
 
         mButton4InARow.setOnClickListener(new View.OnClickListener() {
 
-            FourInARowFragment fourInARowFragment=new FourInARowFragment();
+            FourInARowFragment fourInARowFragment = new FourInARowFragment();
+
             @Override
             public void onClick(View v) {
 
@@ -68,11 +71,10 @@ private Button mButton4InARow;
                     fragmentManager.beginTransaction().replace(R.id.fragment_game_container,fourInARowFragment).commit();
 
                 }*/
-                if(fragment!=null)
-                {
+                if (fragment != null) {
                     fragmentManager.beginTransaction().remove(fragment).commit();
                 }
-                fragmentManager.beginTransaction().add(R.id.fragment_game_container,fourInARowFragment).commit();
+                fragmentManager.beginTransaction().add(R.id.fragment_game_container, fourInARowFragment).commit();
             }
         });
     }

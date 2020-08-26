@@ -10,6 +10,15 @@ public class FourInARowInf {
     public FourInARowInf() {
         mTable = new byte[5][5];
         mPlayer1Turn = true;
+        initializeTable();
+    }
+
+    private void initializeTable() {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                mTable[i][j] = 0;
+            }
+        }
     }
 
     public String getPlayer1Name() {
@@ -98,7 +107,6 @@ public class FourInARowInf {
 
         return checkUpRightDownLeftDiagonal(i, j) || checkDownRightUpLeftDiagonal(i, j);
     }
-
 
 
     private boolean checkUpRightDownLeftDiagonal(int i, int j) {
