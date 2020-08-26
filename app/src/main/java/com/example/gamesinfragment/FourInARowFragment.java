@@ -2,6 +2,7 @@ package com.example.gamesinfragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -27,12 +28,18 @@ public class FourInARowFragment extends Fragment {
     }
 
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fourInARowInf=new FourInARowInf();
         mButtons=new Button[5][5];
+
 
     }
 
@@ -87,10 +94,10 @@ public class FourInARowFragment extends Fragment {
             setButtonsDisable();
             if (fourInARowInf.mPlayer1Turn)
             {
-                mTextViewFIRwinner.setText(fourInARowInf.getPlayer1Name()+" wins");
+                mTextViewFIRwinner.setText(String.format("%s wins", fourInARowInf.getPlayer1Name()));
             }
             else {
-                mTextViewFIRwinner.setText(fourInARowInf.getPlayer2Name()+" wins");
+                mTextViewFIRwinner.setText(String.format("%s wins", fourInARowInf.getPlayer2Name()));
             }
         }
         else {

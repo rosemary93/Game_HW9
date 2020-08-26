@@ -17,11 +17,16 @@ import android.widget.TextView;
  * create an instance of this fragment.
  */
 public class TicTacToeFragment extends Fragment {
+    public static final String BUNDLE_KEY_TEXT_VIEW_TT_TWINNER = "textViewTTTwinner";
+    public static final String BUNDLE_KEY_HAS_NO_WINNER = "hasNoWinner";
+    public static final String BUNDLE_KEY_COUNTER = "counter";
+    public static final String BUNDLE_KEY_GAME_TABLE = "gameTable";
+    public static final String BUNDLE_KEY_PLAYER_1_TURN = "player1Turn";
     private Button[][]mButtons;
-    private TextView mTextViewWinner;
+    private TextView mTextViewTTTWinner;
     private TicTacToeInf ticTacToeInf;
     private boolean mHasNoWinner;
-    private int counter=0;
+    private int mCounter =0;
 
     public TicTacToeFragment() {
         // Required empty public constructor
@@ -38,7 +43,10 @@ public class TicTacToeFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-
+    outState.putBoolean(BUNDLE_KEY_HAS_NO_WINNER,mHasNoWinner);
+    outState.putInt(BUNDLE_KEY_COUNTER,mCounter);
+    outState.putSerializable(BUNDLE_KEY_GAME_TABLE,ticTacToeInf.mTable);
+    outState.putBoolean(BUNDLE_KEY_PLAYER_1_TURN,ticTacToeInf.mPlayer1Turn);
     }
 
     @Override
@@ -46,117 +54,40 @@ public class TicTacToeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tic_tac_toe, container, false);
-
         findViews(view);
-        setListeners();
+        if (savedInstanceState!=null)
+        {
+            mHasNoWinner=savedInstanceState.getBoolean(BUNDLE_KEY_HAS_NO_WINNER);
+            mCounter=savedInstanceState.getInt(BUNDLE_KEY_COUNTER);
+            ticTacToeInf.mTable= (byte[][]) savedInstanceState.getSerializable(BUNDLE_KEY_GAME_TABLE);
+            ticTacToeInf.mPlayer1Turn=savedInstanceState.getBoolean(BUNDLE_KEY_PLAYER_1_TURN);
+            ticTacToeInf.mPlayer2Turn=!(ticTacToeInf.mPlayer1Turn);
 
+            updateUI();
+            checkHasWinner();
+            checkTie();
+        }
+
+        setListeners();
         return view;
     }
 
-    private void setListeners() {
-        mButtons[0][0].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getInputsfromPlayers(mButtons[0][0],0,0);
-                checkHasWinner();
-                counter++;
-                checkTie();
-                ticTacToeInf.changeTurn();
-                mButtons[0][0].setClickable(false);
+    private void updateUI() {
+        for (int i = 0; i <3 ; i++) {
+            for (int j = 0; j <3 ; j++) {
+                if (ticTacToeInf.mTable[i][j]==0)
+                {
+                 mButtons[i][j].setText("X");
+                 mButtons[i][j].setClickable(false);
+                }else if (ticTacToeInf.mTable[i][j]==1)
+                {
+                    mButtons[i][j].setText("O");
+                    mButtons[i][j].setClickable(false);
+                }
             }
-        });
-        mButtons[0][1].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getInputsfromPlayers(mButtons[0][1],0,1);
-                checkHasWinner();
-                counter++;
-                checkTie();
-                ticTacToeInf.changeTurn();
-                mButtons[0][1].setClickable(false);
-            }
-        });
-        mButtons[0][2].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getInputsfromPlayers(mButtons[0][2],0,2);
-                checkHasWinner();
-                counter++;
-                checkTie();
-                ticTacToeInf.changeTurn();
-                mButtons[0][2].setClickable(false);
-            }
-        });
-        mButtons[1][0].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getInputsfromPlayers(mButtons[1][0],1,0);
-                checkHasWinner();
-                counter++;
-                checkTie();
-                ticTacToeInf.changeTurn();
-                mButtons[1][0].setClickable(false);
-            }
-        });
-        mButtons[1][1].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getInputsfromPlayers(mButtons[1][1],1,1);
-                checkHasWinner();
-                counter++;
-                checkTie();
-                ticTacToeInf.changeTurn();
-                mButtons[1][1].setClickable(false);
-            }
-        });
-        mButtons[1][2].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getInputsfromPlayers(mButtons[1][2],1,2);
-                checkHasWinner();
-                counter++;
-                checkTie();
-                ticTacToeInf.changeTurn();
-                mButtons[1][2].setClickable(false);
-            }
-        });
-        mButtons[2][0].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getInputsfromPlayers(mButtons[2][0],2,0);
-                checkHasWinner();
-                counter++;
-                checkTie();
-                ticTacToeInf.changeTurn();
-                mButtons[2][0].setClickable(false);
-            }
-        });
-        mButtons[2][1].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getInputsfromPlayers(mButtons[2][1],2,1);
-                checkHasWinner();
-                counter++;
-                checkTie();
-                ticTacToeInf.changeTurn();
-                mButtons[2][1].setClickable(false);
-            }
-        });
-        mButtons[2][2].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getInputsfromPlayers(mButtons[2][2],2,2);
-                checkHasWinner();
-                counter++;
-                checkTie();
-                ticTacToeInf.changeTurn();
-                mButtons[2][2].setClickable(false);
-            }
-        });
-
-
-
+        }
     }
+
 
     private void getInputsfromPlayers(Button mButton,int i,int j) {
         if (ticTacToeInf.mPlayer1Turn) {
@@ -169,9 +100,9 @@ public class TicTacToeFragment extends Fragment {
     }
 
     private void checkTie() {
-        if (counter==9 && mHasNoWinner)
+        if (mCounter ==9 && mHasNoWinner)
         {
-            mTextViewWinner.setText(R.string.tie);
+            mTextViewTTTWinner.setText(R.string.tie);
         }
     }
 
@@ -179,14 +110,12 @@ public class TicTacToeFragment extends Fragment {
         switch (ticTacToeInf.checkWinner()){
             case 0:
                 disableButtons();
-                String p1Win=ticTacToeInf.getPlayer1Name()+R.string.win;
-                mTextViewWinner.setText(p1Win);
+                mTextViewTTTWinner.setText(String.format("%s wins", ticTacToeInf.getPlayer1Name()));
                 mHasNoWinner=false;
                 break;
             case 1:
                 disableButtons();
-                String p2Win=ticTacToeInf.getPlayer2Name()+R.string.win;
-                mTextViewWinner.setText(p2Win);
+                mTextViewTTTWinner.setText(String.format("%s wins", ticTacToeInf.getPlayer2Name()));
                 mHasNoWinner=false;
                 break;
             case -1:
@@ -195,15 +124,31 @@ public class TicTacToeFragment extends Fragment {
     }
 
     private void disableButtons() {
-        mButtons[0][0].setEnabled(false);
-        mButtons[0][1].setEnabled(false);
-        mButtons[0][2].setEnabled(false);
-        mButtons[1][0].setEnabled(false);
-        mButtons[1][1].setEnabled(false);
-        mButtons[1][2].setEnabled(false);
-        mButtons[2][0].setEnabled(false);
-        mButtons[2][1].setEnabled(false);
-        mButtons[2][2].setEnabled(false);
+        for (int i = 0; i <3 ; i++) {
+            for (int j = 0; j <3 ; j++) {
+                mButtons[i][j].setEnabled(false);
+            }
+        }
+    }
+
+    private void setListeners() {
+        for (int i = 0; i <3 ; i++) {
+            for (int j = 0; j <3 ; j++) {
+                final int finalI = i;
+                final int finalJ = j;
+                mButtons[i][j].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getInputsfromPlayers(mButtons[finalI][finalJ],finalI,finalJ);
+                        checkHasWinner();
+                        mCounter++;
+                        checkTie();
+                        ticTacToeInf.changeTurn();
+                        mButtons[finalI][finalJ].setClickable(false);
+                    }
+                });
+            }
+        }
     }
 
     private void findViews(View view) {
@@ -216,6 +161,6 @@ public class TicTacToeFragment extends Fragment {
         mButtons[2][0]=view.findViewById(R.id.button20);
         mButtons[2][1]=view.findViewById(R.id.button21);
         mButtons[2][2]=view.findViewById(R.id.button22);
-        mTextViewWinner = view.findViewById(R.id.textViewWinnerTTT);
+        mTextViewTTTWinner = view.findViewById(R.id.textViewWinnerTTT);
     }
 }
